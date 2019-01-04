@@ -3,4 +3,3 @@ addpath('bp');
 addpath('generative');
 addpath('util');
 addpath('voxelization');
-addpath('volumetric_data');
