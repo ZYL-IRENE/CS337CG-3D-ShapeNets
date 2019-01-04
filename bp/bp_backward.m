@@ -9,7 +9,9 @@ loss = - mean( log(activation{numLayer}(label == 1) ) );
 
 batch_size = size(label,1);
 error = cell(numLayer, 1);
-error{numLayer} = - ( double(label) - activation{numLayer} );
+error{numLayer} = - ( double(label) - activation{numLayer} );%error is the derivative of loss w.r.t o
+% need to cmopute the total number of miss branched(correct branch
+% determined by majority vote) as error
 for l = model.numLayer-1 : -1 : 2
     if l == 1
         error{l} = myConvolve(kConv_backward, error{l+1}, model.layers{l+1}.w, model.layers{l+1}.stride, 'backward');
@@ -22,6 +24,12 @@ for l = model.numLayer-1 : -1 : 2
         end
     end
     error{l} = error{l} .* double(activation{l}) .* double(( 1 - activation{l} ));
+    if isfield(model.layers{l+1},'hasPadding')
+        sizeb = size(error{l});
+        ps = model.layers{l+1}.paddingsize;
+        temp = error{l};
+        error{l} = temp(:,ps(1)+1:sizeb(2)-ps(1),ps(2)+1:sizeb(3)-ps(2),ps(3)+1:sizeb(4)-ps(3),:);
+    end
 end
 
 % Compute the gradients for each layer
@@ -38,3 +46,4 @@ for l = 2 : numLayer
         model.layers{l}.grdc = mean(error{l}, 1);
     end
 end
+

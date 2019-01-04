@@ -123,26 +123,26 @@ for iter = 1 : param.epochs
     if iter == floor(0.75 * param.epochs)
         lr = lr / 2;
     end
-    if mod(iter, 5) == 0
-        % Evaluate the model / compute various cost. 
-        train_energy = free_energy(model, data, l);
-        train_energy = train_energy(train_energy ~= Inf);
-        fprintf('ITER: %d, FREE-ENERGY: train: %f\n', iter,...
-            mean(train_energy));
-        
-        train_err = get_cross_entropy_all(model, data_list, data(:,1:model.classes), l);
-        fprintf('ITER: %d CROSS-ENTROPY: train: %f\n', iter,...
-            mean(train_err));
-        
-        fprintf('hidmeans : %f\n', mean(hidmeans(:)));
-        % monitor the weight
-        W = model.layers{l}.w; B = model.layers{l}.b; C = model.layers{l}.c;
-        dW = model.layers{l}.grdw; dB = model.layers{l}.grdb; dC = model.layers{l}.grdc;
-        fprintf('abs mean: W: %f, dW: %f\n',mean(abs(W(:))), mean(abs(dW(:))));
-        fprintf('abs mean: B: %f, dB: %f\n',mean(abs(B(:))), mean(abs(dB(:))));
-        fprintf('abs mean: C: %f, dC: %f\n',mean(abs(C(:))), mean(abs(dC(:))));
-        fprintf('hidmeans: %f\n', mean(hidmeans(:)));
-    end
+%     if mod(iter, 5) == 0
+%         % Evaluate the model / compute various cost. 
+%         train_energy = free_energy(model, data, l);
+%         train_energy = train_energy(train_energy ~= Inf);
+%         fprintf('ITER: %d, FREE-ENERGY: train: %f\n', iter,...
+%             mean(train_energy));
+%         
+%         train_err = get_cross_entropy_all(model, data_list, data(:,1:model.classes), l);
+%         fprintf('ITER: %d CROSS-ENTROPY: train: %f\n', iter,...
+%             mean(train_err));
+%         
+%         fprintf('hidmeans : %f\n', mean(hidmeans(:)));
+%         % monitor the weight
+%         W = model.layers{l}.w; B = model.layers{l}.b; C = model.layers{l}.c;
+%         dW = model.layers{l}.grdw; dB = model.layers{l}.grdb; dC = model.layers{l}.grdc;
+%         fprintf('abs mean: W: %f, dW: %f\n',mean(abs(W(:))), mean(abs(dW(:))));
+%         fprintf('abs mean: B: %f, dB: %f\n',mean(abs(B(:))), mean(abs(dB(:))));
+%         fprintf('abs mean: C: %f, dC: %f\n',mean(abs(C(:))), mean(abs(dC(:))));
+%         fprintf('hidmeans: %f\n', mean(hidmeans(:)));
+%     end
 end
 
 model.persistant_chain = persistant_chain;

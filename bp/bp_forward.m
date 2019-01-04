@@ -6,6 +6,13 @@ global kConv_forward_c;
 
 activation = cell(model.numLayer, 1);
 for l = 2 : model.numLayer
+    if isfield(model.layers{l},'hasPadding')
+        sizeb = size(batch);
+        ps = model.layers{l}.paddingsize;
+        temp = single(zeros(sizeb(1),sizeb(2)+2*ps(1),sizeb(3)+2*ps(2),sizeb(4)+2*ps(3),sizeb(5)));
+        temp(:,ps(1)+1:sizeb(2)+ps(1),ps(2)+1:sizeb(3)+ps(2),ps(3)+1:sizeb(4)+ps(3),:) = batch;
+        batch = temp;
+    end
     activation{l-1} = batch;
     if l == 2
         stride = model.layers{l}.stride;

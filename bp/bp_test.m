@@ -1,4 +1,4 @@
-function loss_all = bp_test(model)
+function [loss_all,accuracy] = bp_test(model)
 
 data_list = read_data_list(model.data_path, model.classnames, ...
     model.volume_size + 2 * model.pad_size, 'test');

@@ -13,7 +13,7 @@ end
 if debug
     maxNum = 20;
 elseif strcmp(train_or_test, 'train')
-    maxNum = 960;
+    maxNum = 80*12;
 else
     maxNum = 20*12;
 end
@@ -21,7 +21,7 @@ end
 num_classes = length(classes);
 data_list = cell(num_classes,1);
 for c = 1 : num_classes
-    fprintf('reading the %s category\n', classes{c});
+%     fprintf('reading the %s category\n', classes{c});
     category_path = [base_path '/' classes{c} '/' num2str(data_size) '/' train_or_test];
     files = dir(category_path);
     
@@ -41,6 +41,6 @@ for c = 1 : num_classes
           break;
         end
     end
-    fprintf('fetched %d number of instances\n', cat_ind);
+%     fprintf('fetched %d number of instances\n', cat_ind);
 end
 
