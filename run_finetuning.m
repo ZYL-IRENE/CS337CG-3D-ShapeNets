@@ -6,6 +6,10 @@ function model = run_finetuning(model)
 rng('shuffle');
 kernels;
 debug = 0;
+addpath 3D;
+addpath bp;
+addpath generative;
+addpath util;
 
 data_list = read_data_list(model.data_path, model.classnames, ...
     model.volume_size + 2 * model.pad_size, 'train', debug);
