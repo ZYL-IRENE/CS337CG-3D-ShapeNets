@@ -2,7 +2,9 @@
 project for CS337 Computer Graphic
 
 Based on paper *3D ShapeNets: A Deep Representation for Volumetric Shape Modeling*
+
 Download the original off mesh data. Use utils/write_input_data.m too convert the mesh representation into volumes.
+
 The file run_finetuning.m can be just ignored since it is time consuming but merely sometimes improve performance slightly.
 ## About the files
       1. The root folder contains interfaces for training and testing.
